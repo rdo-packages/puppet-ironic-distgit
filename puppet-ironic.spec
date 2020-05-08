@@ -1,15 +1,17 @@
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
 Name:           puppet-ironic
 Version:        16.3.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Puppet module for OpenStack Ironic
 License:        ASL 2.0
 
 URL:            https://launchpad.net/puppet-ironic
 
 Source0:        https://tarballs.openstack.org/%{name}/%{name}-%{upstream_version}.tar.gz
+Patch0001:      0001-Explicitly-install-inspector-dnsmasq-package.patch
 
 BuildArch:      noarch
+BuildRequires:  git
 
 Requires:       puppet-inifile
 Requires:       puppet-keystone
@@ -23,7 +25,7 @@ Requires:       puppet >= 2.7.0
 Puppet module for OpenStack Ironic
 
 %prep
-%setup -q -n openstack-ironic-%{upstream_version}
+%autosetup -n openstack-ironic-%{upstream_version} -S git
 
 find . -type f -name ".*" -exec rm {} +
 find . -size 0 -exec rm {} +
@@ -47,6 +49,9 @@ cp -rp * %{buildroot}/%{_datadir}/openstack-puppet/modules/ironic/
 
 
 %changelog
+* Fri May 08 2020 Yatin Karel <ykarel@redhat.com> - 16.3.0-2
+- Apply patch until patch is in next tag release
+
 * Wed May 06 2020 RDO <dev@lists.rdoproject.org> 16.3.0-1
 - Update to 16.3.0
 
