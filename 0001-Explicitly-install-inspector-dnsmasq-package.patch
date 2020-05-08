@@ -1,0 +1,65 @@
+From d6d892df10e568ee9ae788d4f3fa106a69b9da7e Mon Sep 17 00:00:00 2001
+From: yatinkarel <ykarel@redhat.com>
+Date: Wed, 29 Apr 2020 12:13:17 +0530
+Subject: [PATCH] Explicitly install inspector-dnsmasq package
+
+The package used to be implicitly pulled before [1],
+now this needs to be installed explicitly.
+
+Changed inspector_package param to contain list of packages
+to install and adopted package module to handle list
+of packages.
+
+[1] https://review.rdoproject.org/r/#/c/23761/
+
+Change-Id: I2435b476b65be5aab6e35bad0834e60dc9c8ced5
+(cherry picked from commit b1ea700ba8a842125576f6882312a9ba50511916)
+---
+ manifests/inspector.pp                | 3 +--
+ manifests/params.pp                   | 2 +-
+ spec/classes/ironic_inspector_spec.rb | 1 -
+ 3 files changed, 2 insertions(+), 4 deletions(-)
+
+diff --git a/manifests/inspector.pp b/manifests/inspector.pp
+index a633be6..a215a9a 100644
+--- a/manifests/inspector.pp
++++ b/manifests/inspector.pp
+@@ -424,9 +424,8 @@ Use ironic::inspector::ironic::endpoint_override instead.')
+ 
+   # Install package
+   if $::ironic::params::inspector_package {
+-    package { 'ironic-inspector':
++    package { $::ironic::params::inspector_package:
+       ensure => $package_ensure,
+-      name   => $::ironic::params::inspector_package,
+       tag    => ['openstack', 'ironic-inspector-package'],
+     }
+   }
+diff --git a/manifests/params.pp b/manifests/params.pp
+index b6e2610..be50d02 100644
+--- a/manifests/params.pp
++++ b/manifests/params.pp
+@@ -53,7 +53,7 @@ class ironic::params {
+       $api_service               = 'openstack-ironic-api'
+       $conductor_package         = 'openstack-ironic-conductor'
+       $conductor_service         = 'openstack-ironic-conductor'
+-      $inspector_package         = 'openstack-ironic-inspector'
++      $inspector_package         = ['openstack-ironic-inspector', 'openstack-ironic-inspector-dnsmasq']
+       $inspector_service         = 'openstack-ironic-inspector'
+       $inspector_dnsmasq_service = 'openstack-ironic-inspector-dnsmasq'
+       $staging_drivers_package   = 'openstack-ironic-staging-drivers'
+diff --git a/spec/classes/ironic_inspector_spec.rb b/spec/classes/ironic_inspector_spec.rb
+index dcc2eac..8a75714 100644
+--- a/spec/classes/ironic_inspector_spec.rb
++++ b/spec/classes/ironic_inspector_spec.rb
+@@ -84,7 +84,6 @@ describe 'ironic::inspector' do
+     it 'installs ironic inspector package' do
+       if platform_params.has_key?(:inspector_package)
+         is_expected.to contain_package('ironic-inspector').with(
+-          :name   => platform_params[:inspector_package],
+           :ensure => p[:package_ensure],
+           :tag    => ['openstack', 'ironic-inspector-package'],
+         )
+-- 
+2.20.1
+
