@@ -66,3 +66,4 @@ cp -rp * %{buildroot}/%{_datadir}/openstack-puppet/modules/ironic/
 %changelog
 
 
+# REMOVEME: error caused by commit https://opendev.org/openstack/puppet-ironic/commit/ab8f8baa4a690feec8c7cc8f53eca03f7225c874
