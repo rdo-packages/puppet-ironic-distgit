@@ -1,7 +1,7 @@
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
 Name:           puppet-ironic
-Version:        16.3.0
-Release:        2%{?dist}
+Version:        16.4.0
+Release:        1%{?dist}
 Summary:        Puppet module for OpenStack Ironic
 License:        ASL 2.0
 
@@ -49,6 +49,9 @@ cp -rp * %{buildroot}/%{_datadir}/openstack-puppet/modules/ironic/
 
 
 %changelog
+* Mon Nov 29 2021 RDO <dev@lists.rdoproject.org> 16.4.0-1
+- Update to 16.4.0
+
 * Fri May 08 2020 Yatin Karel <ykarel@redhat.com> - 16.3.0-2
 - Apply patch until patch is in next tag release
 
