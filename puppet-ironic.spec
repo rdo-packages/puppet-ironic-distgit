@@ -1,8 +1,8 @@
 %{!?sources_gpg: %{!?dlrn:%global sources_gpg 1} }
-%global sources_gpg_sign 0x4c29ff0e437f3351fd82bdf47c5a3bc787dc7035
+%global sources_gpg_sign 0x01527a34f0d0080f8a5db8d6eb6c5df21b4b6363
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
 Name:           puppet-ironic
-Version:        18.5.0
+Version:        18.6.0
 Release:        1%{?dist}
 Summary:        Puppet module for OpenStack Ironic
 License:        ASL 2.0
@@ -64,6 +64,9 @@ cp -rp * %{buildroot}/%{_datadir}/openstack-puppet/modules/ironic/
 
 
 %changelog
+* Wed Feb 16 2022 RDO <dev@lists.rdoproject.org> 18.6.0-1
+- Update to 18.6.0
+
 * Mon Aug 16 2021 RDO <dev@lists.rdoproject.org> 18.5.0-1
 - Update to 18.5.0
 
