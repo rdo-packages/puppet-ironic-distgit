@@ -29,7 +29,7 @@ Requires:       puppet-keystone
 Requires:       puppet-openstacklib
 Requires:       puppet-oslo
 Requires:       puppet-stdlib
-Requires:       puppet-vcsrepo
+Requires:       puppet-git
 Requires:       puppet >= 2.7.0
 
 %description
