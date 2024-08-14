@@ -24,6 +24,7 @@ BuildRequires:  /usr/bin/gpgv2
 BuildRequires:  openstack-macros
 %endif
 
+Requires:       puppet-apache
 Requires:       puppet-inifile
 Requires:       puppet-keystone
 Requires:       puppet-openstacklib
